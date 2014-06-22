@@ -55,7 +55,7 @@ function gui2_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for gui2
 handles.output = hObject;
 set(handles.symulacja,'enable','off');
-howManyBits = 10000;
+howManyBits = 100000;
 handles.howManyBits = howManyBits; 
 set(handles.text9,'String',howManyBits);
 % Update handles structure
