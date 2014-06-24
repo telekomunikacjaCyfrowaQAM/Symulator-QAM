@@ -89,7 +89,7 @@ for p=1:length(SNRdB)
     tb=theoryBer + (10.^(-SNRdB(p)/5)).*randn(1,length(theoryBer));
 end
 axes(handles.axes1);
-semilogy(SNRdB,tb,'X',SNRdB,theoryBer);
+semilogy(SNRdB,tb,'X',SNRdB,berawgn(SNRdB,'qam',handles.ConstelationType));
 grid;
 
     
