@@ -76,12 +76,13 @@ SNRdB = 10.^(SNR/10);
 bitErrorRate = zeros(1,length(SNR)); %prealokacja wektora
 
     
-    fb = k*25;
-    Eb =  sum(qam.^2)/(length(qam)*fb);
-    n0 = Eb/10.^(SNR/10);
-    pn = n0*(fs)/2;
+
+    Et =  sum((real(mappedSymbols)-imag(mappedSymbols)).^2)/k;
+    Eb= Et/length(qam);
+    n0 = Eb/10.^(SNR(j)/10);
+    pn = n0*fs;
     noise = sqrt(pn)*randn(1,length(qam));
-    qamAWGN = qam+noise;
+    qamAWGN = qam + noise;
     
     for i=1:1:length(mappedSymbols)    %dolno
         I((i-1)*100+t+1)=qamAWGN((i-1)*100+t+1).*cos(2*pi*f0*t);
