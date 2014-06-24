@@ -55,9 +55,6 @@ function gui2_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for gui2
 handles.output = hObject;
 set(handles.symulacja,'enable','off');
-howManyBits = 100000;
-handles.howManyBits = howManyBits; 
-set(handles.text9,'String',howManyBits);
 % Update handles structure
 guidata(hObject, handles);
 
@@ -81,8 +78,8 @@ function symulacja_Callback(hObject, eventdata, handles)
 % hObject    handle to symulacja (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%howManyBits = 1000;       %liczba bitów do symulacji BER
-[bitErrorRate, SNRdB,theoryBer ]=QAMBER(handles.ConstelationType,handles.howManyBits);
+howManyBits = 10000;       %liczba bitów do symulacji BER
+[bitErrorRate, SNRdB,theoryBer ]=QAMBER(handles.ConstelationType,howManyBits);
 % rysowanie wykresów 
 axes(handles.axes1);
 semilogy(SNRdB,bitErrorRate,'X',SNRdB,berawgn(SNRdB,'qam',handles.ConstelationType));
@@ -90,7 +87,6 @@ grid;
 
 % Update handles structure
 guidata(hObject, handles);
-end
 
 
 % --- Executes on button press in qam256button.
