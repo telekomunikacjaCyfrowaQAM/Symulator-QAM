@@ -37,13 +37,13 @@ for i = 1:log2(M):length(generatedData)
     symbolBits = generatedData(i:i+(log2(M)-1));
     switch(log2(M))
         case 2
-            symbolIndex = 2^1*symbolBits(1)+ 2^0*symbolBits(2);fb=46;
+            symbolIndex = 2^1*symbolBits(1)+ 2^0*symbolBits(2);
         case 4
-            symbolIndex = 2^3 * symbolBits(1) + 2^2 * symbolBits(2)+ 2^1 *     symbolBits(3)+ 2^0 * symbolBits(4);fb=80;
+            symbolIndex = 2^3 * symbolBits(1) + 2^2 * symbolBits(2)+ 2^1 *     symbolBits(3)+ 2^0 * symbolBits(4);
         case 6
-            symbolIndex = 2^5 * symbolBits(1) + 2^4 * symbolBits(2) + 2^3 * symbolBits(3) + 2^2 * symbolBits(4)+ 2^1 * symbolBits(5)+ 2^0 * symbolBits(6);fb=142.5;
+            symbolIndex = 2^5 * symbolBits(1) + 2^4 * symbolBits(2) + 2^3 * symbolBits(3) + 2^2 * symbolBits(4)+ 2^1 * symbolBits(5)+ 2^0 * symbolBits(6);
         case 8
-            symbolIndex = 2^7 * symbolBits(1) + 2^6 * symbolBits(2) + 2^5 * symbolBits(3) + 2^4 * symbolBits(4)+ 2^3 * symbolBits(5)+ 2^2 * symbolBits(6)+2^1 * symbolBits(7) +2^0 * symbolBits(8) ;fb=200;
+            symbolIndex = 2^7 * symbolBits(1) + 2^6 * symbolBits(2) + 2^5 * symbolBits(3) + 2^4 * symbolBits(4)+ 2^3 * symbolBits(5)+ 2^2 * symbolBits(6)+2^1 * symbolBits(7) +2^0 * symbolBits(8) ;
         case 10
             symbolIndex = 2^9*symbolBits(1) + 2^8*symbolBits(2)+ 2^7*symbolBits(3) +2^6*symbolBits(4) +2^5*symbolBits(5) +2^4*symbolBits(6) +2^3*symbolBits(7) +2^2*symbolBits(8) +2^1*symbolBits(9) +2^0*symbolBits(10);
         otherwise
@@ -76,9 +76,11 @@ SNRdB = 10.^(SNR/10);
 bitErrorRate = zeros(1,length(SNR)); % prealokacja wektora
 for j = 1 : length(SNR)
     
-    Eb =  sum(qam.^2)/(length(qam)*fb);
+
+    Et =  sum((real(mappedSymbols)-imag(mappedSymbols)).^2)/k;
+    Eb= Et/length(qam);
     n0 = Eb/10.^(SNR(j)/10);
-    pn = n0*(fs)/2;
+    pn = n0*fs;
     noise = sqrt(pn)*randn(1,length(qam));
     qamAWGN = qam + noise;
     
