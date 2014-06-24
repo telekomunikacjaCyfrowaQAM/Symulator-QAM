@@ -84,19 +84,10 @@ function symulacja_Callback(hObject, eventdata, handles)
 %howManyBits = 1000;       %liczba bitów do symulacji BER
 [bitErrorRate, SNRdB,theoryBer ]=QAMBER(handles.ConstelationType,handles.howManyBits);
 % rysowanie wykresów 
-if(handles.ConstelationType==64 || handles.ConstelationType==256)
-for p=1:length(SNRdB)
-    tb=theoryBer + (10.^(-SNRdB(p)/5)).*randn(1,length(theoryBer));
-end
 axes(handles.axes1);
-semilogy(SNRdB,tb,'X',SNRdB,berawgn(SNRdB,'qam',handles.ConstelationType));
+semilogy(SNRdB,bitErrorRate,'X',SNRdB,berawgn(SNRdB,'qam',handles.ConstelationType));
 grid;
 
-    
-else
-    axes(handles.axes1);
-semilogy(SNRdB,bitErrorRate,'X',SNRdB,theoryBer);
-grid;
 % Update handles structure
 guidata(hObject, handles);
 end
